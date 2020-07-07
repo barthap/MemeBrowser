@@ -1,4 +1,4 @@
-import { MemeEntity } from "./model/entity";
+import { MemeEntity } from "../model/entity";
 
 export type RootStackParamList = {
   Root: undefined;

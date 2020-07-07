@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
-import { MemesParamList } from "../types";
+import { MemesParamList } from "./types";
 import MemeGalleryScreen from "../screens/MemeGalleryScreen";
 import { MemeDetailsScreen } from "../screens/MemeDetailsScreen";
 

@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Image} from "react-native";
 import {Container, Content, H1, Icon } from "native-base";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
-import { MemesParamList } from "../types";
+import { MemesParamList } from "../navigation/types";
 
 type DetailsStackNavProp = StackNavigationProp<MemesParamList, 'Details'>;
 type DetailsScreenRouteProp = RouteProp<MemesParamList, 'Details'>;

@@ -1,26 +1,16 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { Ionicons } from '@expo/vector-icons';
 import { MemeEntity } from '../model/entity';
 import { MemeGrid } from '../components/MemeGrid';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { MemesParamList } from '../types';
+import { MemesParamList } from '../navigation/types';
+import { useMemeList } from '../hooks/useMemeList';
+import { SearchBar } from '../components/SearchBar';
 
-
-
-const data: MemeEntity[] = [
-  {id: 1, path: "", name: "Img 1", content: "meme 1", createdAt: ""},
-  {id: 2, path: "", name: "Img 2", content: "meme 2", createdAt: ""},
-  {id: 3, path: "", name: "Img 3", content: "meme 3", createdAt: ""},
-  {id: 4, path: "", name: "Img 4", content: "meme 4", createdAt: ""},
-  {id: 5, path: "", name: "Img 5", content: "meme 5", createdAt: ""},
-  {id: 6, path: "", name: "Img 6", content: "meme 6", createdAt: ""},
-  {id: 7, path: "", name: "Img 7", content: "meme 7", createdAt: ""},
-]
 
 
 type DetailsStackNavProp = StackNavigationProp<MemesParamList, 'Gallery'>;
@@ -32,13 +22,18 @@ type Props = {
 
 export default function MemeGalleryScreen(props: Props) {
 
-  const noItems = data.length === 0;
+  const [state, reload] = useMemeList(true);
+
+  const noItems = state.memes.length === 0 && !state.loading;
   const itemPressed = (meme: MemeEntity) => props.navigation.navigate('Details', {meme});
 
   return (
     <View style={styles.container}>
       {noItems ? <NoItemsMessage handleRefresh={() => {}} /> :
-        <MemeGrid memes={data} onMemePress={itemPressed}/>
+        <MemeGrid memes={state.memes}
+                  refreshing={state.loading}
+                  onRefresh={reload}
+                  onMemePress={itemPressed}/>
       }
     </View>
   );

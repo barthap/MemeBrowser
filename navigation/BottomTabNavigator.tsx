@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import { BottomTabParamList, MemesParamList, SettingsParamList } from '../types';
+import { BottomTabParamList, MemesParamList, SettingsParamList } from './types';
 import MemesNavigator from './MemesNavigator';
 import SettingsNavigator from './SettingsNavigator';
 

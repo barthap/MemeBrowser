@@ -2,7 +2,7 @@
 import React from 'react';
 import { MemeEntity } from '../model/entity';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, RefreshControl } from 'react-native';
 
 export interface MemeGridProps {
     memes: MemeEntity[];
@@ -27,10 +27,16 @@ export function MemeGrid(props: MemeGridProps) {
             </TouchableOpacity>
         </View>
     );
+
+    const refreshControl = <RefreshControl
+        refreshing={props.refreshing || false}
+        onRefresh={props.onRefresh}
+    />;
     
     return (
         <FlatList
             data={props.memes}
+            refreshControl={refreshControl}
             onEndReached={props.onEndReached}
             onEndReachedThreshold={0.15}
             windowSize={11}
