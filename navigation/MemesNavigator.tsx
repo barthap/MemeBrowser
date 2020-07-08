@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { MemesParamList } from "./types";
 import MemeGalleryScreen from "../screens/MemeGalleryScreen";
 import { MemeDetailsScreen } from "../screens/MemeDetailsScreen";
+import ImagePickerScreen from '../screens/ImagePickerScreen';
 
 const MemesStack = createStackNavigator<MemesParamList>();
 
@@ -13,6 +14,11 @@ export default function MemesNavigator() {
         name="Gallery"
         component={MemeGalleryScreen}
         options={{ headerTitle: 'Memes' }}
+      />
+      <MemesStack.Screen
+        name="Picker"
+        component={ImagePickerScreen}
+        options={{ headerTitle: 'Add memes' }}
       />
       <MemesStack.Screen
         name="Details"

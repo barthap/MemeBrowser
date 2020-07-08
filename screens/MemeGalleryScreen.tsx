@@ -10,17 +10,29 @@ import { RouteProp } from '@react-navigation/native';
 import { MemesParamList } from '../navigation/types';
 import { useMemeList } from '../hooks/useMemeList';
 import { SearchBar } from '../components/SearchBar';
+import { Icon } from 'native-base';
 
 
 
-type DetailsStackNavProp = StackNavigationProp<MemesParamList, 'Gallery'>;
-type DetailsScreenRouteProp = RouteProp<MemesParamList, 'Gallery'>;
+type GalleryStackNavProp = StackNavigationProp<MemesParamList, 'Gallery'>;
+type GalleryScreenRouteProp = RouteProp<MemesParamList, 'Gallery'>;
 type Props = {
-    navigation: DetailsStackNavProp;
-    route: DetailsScreenRouteProp;
+    navigation: GalleryStackNavProp;
+    route: GalleryScreenRouteProp;
 }
 
 export default function MemeGalleryScreen(props: Props) {
+  props.navigation.setOptions({
+    headerRight: ({tintColor}) => ( <View >
+        <Icon name="add"
+              type="Ionicons"
+              style={styles.icon}
+              color={tintColor}
+              onPress={() => props.navigation.navigate('Picker')}/>
+        </View>
+      )
+  });
+
 
   const [state, reload] = useMemeList(true);
 
@@ -65,5 +77,14 @@ const styles = StyleSheet.create({
   secondaryText: {
       fontSize: 12,
       color: '#555'
+  },
+  icon: {
+    paddingRight: 15,
+  },
+  iconContainer: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      width: 100
   }
 });
+

@@ -29,26 +29,35 @@ class SQLiteTransaction implements ITransaction {
         this.transaction = transaction;
     }
 
+    /**
+     * Performs select query with resultset
+     * @param sql SQL query string
+     * @param params values to replace ? in query string
+     */
     query<T>(sql: string, params?: any[]): Promise<ResultSet<T>> {
         console.log(sql);
         return new Promise((resolve, reject) => {
-            this.transaction.executeSql(sql, params, (tx, row) => {
+            this.transaction.executeSql(sql, params, (_, row) => {
                 console.log('Finished', sql);
-                // @ts-ignore
-                resolve(row);
+                resolve(row as ResultSet<T>);
             }, (tx, err) => {
-                if(err.code == 0) return true;
-
+                if (err.code == 0) return true;
+                
                 console.error('Error when executing ' + sql, err);
                 reject(err);
                 return false;
             })
         });
     }
-
+    
+    /**
+     * Performs update query (which doesn't return result)
+     * @param sql SQL query string
+     * @param params values to replace ? in query string
+     */
     exec(sql: string, params?: any[]): void {
-        this.transaction.executeSql(sql, params, ()=>{}, (_, err) => {
-            if(err.message !== 'Error code 0: not an error') {
+        this.transaction.executeSql(sql, params, () => { }, (_, err) => {
+            if (err.message !== 'Error code 0: not an error') {
                 console.warn('Error when executing', sql);
                 throw err;
             }
@@ -65,12 +74,12 @@ class SQLiteDatabase implements ISQLiteDatabase {
     }
 
     public transaction<T>(callback: TransactionCallback<T>): Promise<T> {
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             this.db.transaction(tx => {
                 const tr = new SQLiteTransaction(tx);
                 resolve(callback(tr));
             }, err => {
-                if(err.code == 0) return true;
+                if (err.code == 0) return true;
 
                 reject(err);
                 return false;

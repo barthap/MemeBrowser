@@ -12,6 +12,7 @@ export type BottomTabParamList = {
 
 export type MemesParamList = {
   Gallery: undefined;
+  Picker: undefined;
   Details: { meme: MemeEntity };
 };
 
