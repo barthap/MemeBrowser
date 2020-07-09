@@ -1,4 +1,5 @@
 import { MemeEntity } from "../model/entity";
+import { Asset } from "expo-media-library";
 
 export type RootStackParamList = {
   Root: undefined;
@@ -13,6 +14,7 @@ export type BottomTabParamList = {
 export type MemesParamList = {
   Gallery: undefined;
   Picker: undefined;
+  Prepare: { assets: Asset[] };
   Details: { meme: MemeEntity };
 };
 

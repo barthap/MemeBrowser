@@ -3,7 +3,8 @@
 
 CREATE TABLE IF NOT EXISTS Memes (
   id integer primary key autoincrement,
-  path char(100) not null,
+  assetId char(100) not null,
+  uri char(100) not null,
   createdAt timestamp not null,
   name char(50),
   content text

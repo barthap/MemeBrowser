@@ -11,6 +11,7 @@ export interface CameraRollResult {
 
 export function useCameraRoll(): CameraRollResult {
     
+    //should I consider useReducer() here ???
     const [assets, setAssets] = React.useState<MediaLibrary.Asset[]>([]);
     const [isLoading, setLoading] = React.useState(true);
     const [permissions, setPermissions] = React.useState(true);

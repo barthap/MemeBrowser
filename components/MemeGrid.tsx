@@ -13,7 +13,7 @@ export interface MemeGridProps {
 }
 
 export function MemeGrid(props: MemeGridProps) {
-
+    //const doge = require('../assets/images/doge.jpg');
     const renderItem = ({item}) => (
         <View style={styles.itemView}>
             <TouchableOpacity
@@ -22,7 +22,7 @@ export function MemeGrid(props: MemeGridProps) {
                 onPress={() => { props.onMemePress && props.onMemePress(item) }}>
                 <Image
                     style={styles.image}
-                    source={require(('../assets/images/doge.jpg'))}
+                    source={{uri: item.uri}}
                 />
             </TouchableOpacity>
         </View>
@@ -42,7 +42,7 @@ export function MemeGrid(props: MemeGridProps) {
             windowSize={11}
             renderItem={renderItem}
             numColumns={3}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={item => item.assetId}
         />
     );
 }

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as MediaLibrary from 'expo-media-library';
-import * as Permissions from 'expo-permissions';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { MemesParamList } from '../navigation/types';
-import { SelectableImageGrid, GridItem } from '../components/SelectableImageGrid';
+import { SelectableImageGrid, SelectableAsset } from '../components/SelectableImageGrid';
 import { useCameraRoll } from '../hooks/useCameraRoll';
 
 type PickerStackNavProp = StackNavigationProp<MemesParamList, 'Picker'>;
@@ -24,11 +23,17 @@ export default function ImagePickerScreen(props: Props) {
   const handleSelected = (items: MediaLibrary.Asset[]) => {
 
     props.navigation.setOptions({
-      headerTitle: `${items.length} items selected`
+      headerTitle: `${items.length} items selected`,
+      headerRight: ({tintColor}) => (<View>
+          {items.length > 0 && <Button
+            onPress={() => props.navigation.navigate('Prepare', { assets: items })}
+            title="Go..."
+          />}
+        </View>)
     });
   }
 
-  const images: GridItem[] = camRoll.images.map(data => ({data, selected: false}));
+  const images: SelectableAsset[] = camRoll.images.map(data => ({data, selected: false}));
   const noItems = images.length === 0 && !camRoll.isLoading;
 
   if(!camRoll.permissionsGranted) return <NoPermissionsMessage/>;

@@ -1,15 +1,15 @@
-import { MemeEntity } from "./entity";
 import { delay } from "../util/delay";
 import db from "./db";
+import { MemeEntity } from "./entity";
 
 const fakeData: MemeEntity[] = [
-    {id: 1, path: "", name: "Img 1", content: "meme 1", createdAt: ""},
-    {id: 2, path: "", name: "Img 2", content: "meme 2", createdAt: ""},
-    {id: 3, path: "", name: "Img 3", content: "meme 3", createdAt: ""},
-    {id: 4, path: "", name: "Img 4", content: "meme 4", createdAt: ""},
-    {id: 5, path: "", name: "Img 5", content: "meme 5", createdAt: ""},
-    {id: 6, path: "", name: "Img 6", content: "meme 6", createdAt: ""},
-    {id: 7, path: "", name: "Img 7", content: "meme 7", createdAt: ""},
+    {assetId: "1", uri: "", name: "Img 1", content: "meme 1", createdAt: ""},
+    {assetId: "2", uri: "", name: "Img 2", content: "meme 2", createdAt: ""},
+    {assetId: "3", uri: "", name: "Img 3", content: "meme 3", createdAt: ""},
+    {assetId: "4", uri: "", name: "Img 4", content: "meme 4", createdAt: ""},
+    {assetId: "5", uri: "", name: "Img 5", content: "meme 5", createdAt: ""},
+    {assetId: "6", uri: "", name: "Img 6", content: "meme 6", createdAt: ""},
+    {assetId: "7", uri: "", name: "Img 7", content: "meme 7", createdAt: ""},
   ]
   
 
@@ -19,7 +19,7 @@ export const MemeRepository = {
         return Promise.resolve(fakeData);
     },
 
-    async getAll(): Promise<MemeEntity[]> {
+    async getAll(onlyIds = false): Promise<MemeEntity[]> {
         return db.transaction(async tx => {
             const res = await tx.query("select * from Memes;");
             return res.rows._array as MemeEntity[];
@@ -35,4 +35,32 @@ export const MemeRepository = {
             return r.rows._array;
         });
     },
+
+    async addNewMemes(newMemes: MemeEntity[]): Promise<MemeEntity[]> {
+        const currentIds = await db.transaction(async tx => tx.query<{assetId: string}>("select assetId from Memes"));
+
+        return db.transaction(async tx => {
+            //prevent duplicates when user selected the same image again
+            const memesToAdd = newMemes.filter(
+                meme => currentIds.rows._array.findIndex(el => el.assetId === meme.assetId) < 0
+            );
+            
+            if(memesToAdd.length > 0) {
+                const queryString = memesToAdd
+                    .map(m => `('${m.assetId}', '${m.uri}', '${m.createdAt}', '${m.name}', '${m.content}')`)
+                    .join(', ');
+
+                tx.exec("insert into Memes (assetId, uri, createdAt, name, content) values " + queryString + ";");
+            
+            }
+                
+            return Promise.resolve(memesToAdd);
+        });
+    },
+
+    async removeMeme(meme: MemeEntity) {
+        return db.transaction(async tx => {
+            tx.exec("DELETE FROM Memes WHERE assetId=?", [meme.assetId]);
+        });
+    }
 }

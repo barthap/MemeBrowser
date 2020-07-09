@@ -18,6 +18,7 @@ const initialState: MemeState = {
 
 export const memeReducer: Reducer<MemeState, AnyAction> = (state: MemeState = initialState, action) => {
     switch (action.type) {
+        // LOAD
         case MemeConstants.MEMES_LOAD:
             return {...state, loading: true, error: false};
         case MemeConstants.MEMES_LOAD_SUCCESS: {
@@ -31,6 +32,13 @@ export const memeReducer: Reducer<MemeState, AnyAction> = (state: MemeState = in
         }
         case MemeConstants.MEMES_LOAD_FAILURE:
             return {...state, loading: false, error: true};
+
+        // ADD
+        case MemeConstants.ADD_MEMES_SUCCESS:
+            return {
+                ...state, loading: false, error: false,
+                memes: [...state.memes, ...action.payload.newMemes]
+            };
         default:
             return state;
     }

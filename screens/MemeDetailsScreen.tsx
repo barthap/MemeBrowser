@@ -4,6 +4,7 @@ import {Container, Content, H1, Icon } from "native-base";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { MemesParamList } from "../navigation/types";
+import { AssetImage } from "../components/AssetImage";
 
 type DetailsStackNavProp = StackNavigationProp<MemesParamList, 'Details'>;
 type DetailsScreenRouteProp = RouteProp<MemesParamList, 'Details'>;
@@ -32,7 +33,7 @@ export function MemeDetailsScreen(props: Props) {
     return (
         <Container>
             <Content style={styles.text}>
-                <Image source={require('../assets/images/doge.jpg')}/>
+                <AssetImage id={meme.assetId} uri={meme.uri} />
                 <H1 style={styles.text}>{meme.name}</H1>
                 <Text style={styles.text}>{meme.content}</Text>
             </Content>

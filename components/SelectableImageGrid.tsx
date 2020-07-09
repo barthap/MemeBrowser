@@ -9,7 +9,7 @@ export interface SelectableItem<T> {
     selected: boolean,
     data: T
 };
-type SelectableAsset = SelectableItem<Asset>;
+export type SelectableAsset = SelectableItem<Asset>;
 
 export interface ImageGridProps {
     images: SelectableAsset[];
@@ -21,7 +21,7 @@ export interface ImageGridProps {
 
 export function SelectableImageGrid(props: ImageGridProps) {
 
-    const [selectedItems, setSelectedItems] = useState<SelectableAsset[]>([])
+    const [selectedItems, setSelectedItems] = useState<SelectableAsset[]>([]);
 
     const handlePress = (item: SelectableAsset) => {
         item.selected = !item.selected;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import db from '../model/db';
@@ -10,9 +10,9 @@ export default function SettingsScreen() {
   //this effect is used only for debug purposes
   React.useEffect(() => {
     const fn = async () => {
-      await db.reset();
+      /*await db.reset();
       const res = await MemeRepository.getMoreLike('text');
-      console.log(res);
+      console.log(res);*/
     };
     fn();
   }, []);
@@ -25,6 +25,7 @@ export default function SettingsScreen() {
       <View>
         <Text>And this is debug area for testing snippets.</Text>
       </View>
+      <Button title="Reset schema" onPress={() => db.reset(false)} />
     </View>
   );
 }

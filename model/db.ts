@@ -19,13 +19,17 @@ class Database {
     }
 
     //rebuilds schema and inserts initial data
-    public async reset() {
+    public async reset(addExampleData = false) {
         console.log('Dropping schema...');
         await this.executeJsonSql(dropSchemaSQL);
         console.log('Creating new schema...');
         await this.executeJsonSql(schemaSQL);
-        console.log('Pushing example data...');
-        await this.executeJsonSql(exampleDataSQL);
+
+        if (addExampleData) {
+            console.log('Pushing example data...');
+            await this.executeJsonSql(exampleDataSQL);
+        }
+        
     }
 
     private async executeJsonSql(json: string[]): Promise<any> {

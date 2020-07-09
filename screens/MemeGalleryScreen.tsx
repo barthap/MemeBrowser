@@ -41,7 +41,7 @@ export default function MemeGalleryScreen(props: Props) {
 
   return (
     <View style={styles.container}>
-      {noItems ? <NoItemsMessage handleRefresh={() => {}} /> :
+      {noItems ? <NoItemsMessage handleRefresh={reload} /> :
         <MemeGrid memes={state.memes}
                   refreshing={state.loading}
                   onRefresh={reload}
