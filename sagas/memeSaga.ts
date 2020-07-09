@@ -1,7 +1,7 @@
 import { all, takeEvery, call, put } from "redux-saga/effects";
 import { MemeConstants } from "../constants/memeConstants";
 import { MemeRepository } from "../model/repository";
-import { MemeActions, AddMemesAction } from "../actions/memeActions";
+import { MemeActions, AddMemesAction, DeleteMemeAction } from "../actions/memeActions";
 
 
 const watchLoadMemes = function*() {
@@ -27,9 +27,16 @@ const watchAddMemes = function*() {
     })
 }
 
+const watchDeleteMemes = function*() {
+    yield takeEvery(MemeConstants.DELETE_MEME, function*(action: DeleteMemeAction) {
+        yield call(MemeRepository.removeMeme, action.payload.assetId);
+    })
+}
+
 export function* memeSaga() {
     yield all([
         watchLoadMemes(),
-        watchAddMemes()
+        watchAddMemes(),
+        watchDeleteMemes()
     ]);
 }

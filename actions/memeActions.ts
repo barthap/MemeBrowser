@@ -2,7 +2,8 @@ import {
     MemeConstants, MEMES_LOAD,
     MEMES_LOAD_FAILURE,
     MEMES_LOAD_SUCCESS,
-    ADD_MEMES
+    ADD_MEMES,
+    DELETE_MEME
 } from "../constants/memeConstants";
 
 import {Action, ActionCreator} from "redux";
@@ -57,7 +58,15 @@ const addSuccess: ActionCreator<AddMemesSuccessAction> = (newMemes: MemeEntity[]
     payload: { newMemes }
 });
 
+//DELETION
+export interface DeleteMemeAction extends Action {
+    type: DELETE_MEME;
+    payload: { assetId: string };
+}
+const deleteMeme: ActionCreator<DeleteMemeAction>  = (assetId: string) => ({ type: MemeConstants.DELETE_MEME, payload: {assetId}});
+
 export const MemeActions = {
     load, loadFailure, loadSuccess,
-    add, addFailure, addSuccess
+    add, addFailure, addSuccess,
+    deleteMeme
 };

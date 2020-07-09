@@ -1,10 +1,12 @@
 import React from "react";
-import {View, Text, StyleSheet, Image} from "react-native";
+import {View, Text, StyleSheet, Image, Alert} from "react-native";
 import {Container, Content, H1, Icon } from "native-base";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { MemesParamList } from "../navigation/types";
 import { AssetImage } from "../components/AssetImage";
+import { useDispatch } from "react-redux";
+import { MemeActions } from "../actions/memeActions";
 
 type DetailsStackNavProp = StackNavigationProp<MemesParamList, 'Details'>;
 type DetailsScreenRouteProp = RouteProp<MemesParamList, 'Details'>;
@@ -16,6 +18,28 @@ type Props = {
 export function MemeDetailsScreen(props: Props) {
     const { meme } = props.route.params;
 
+    const dispatch = useDispatch();
+    const handleDeleteBtnClick = () => {
+        Alert.alert(
+            'Confirm',
+            'Do you really want to delete this meme?',
+            [
+                {
+                    text: 'No',
+                    onPress: () => console.log('Cancelled deletion'),
+                    style: "cancel"
+                },
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        dispatch(MemeActions.deleteMeme(meme.assetId));
+                        props.navigation.goBack();
+                    },
+                    style: "destructive"
+                }
+        ]);
+    };
+
     props.navigation.setOptions({
         headerRight: ({tintColor}) => ( <View style={styles.iconContainer}>
             <Icon name="edit"
@@ -25,7 +49,8 @@ export function MemeDetailsScreen(props: Props) {
             <Icon name="delete"
                   type="MaterialIcons"
                   style={styles.icon}
-                  color={tintColor}/>
+                  color={tintColor}
+                  onPress={handleDeleteBtnClick}/>
             </View>
         )
     });

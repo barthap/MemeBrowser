@@ -39,6 +39,13 @@ export const memeReducer: Reducer<MemeState, AnyAction> = (state: MemeState = in
                 ...state, loading: false, error: false,
                 memes: [...state.memes, ...action.payload.newMemes]
             };
+
+        //DELETE
+        case MemeConstants.DELETE_MEME:
+            return {
+                ...state,
+                memes: state.memes.filter(m => m.assetId !== action.payload.assetId)
+            }
         default:
             return state;
     }

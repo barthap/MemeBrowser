@@ -58,9 +58,9 @@ export const MemeRepository = {
         });
     },
 
-    async removeMeme(meme: MemeEntity) {
+    async removeMeme(assetId: string) {
         return db.transaction(async tx => {
-            tx.exec("DELETE FROM Memes WHERE assetId=?", [meme.assetId]);
+            tx.exec("DELETE FROM Memes WHERE assetId=?", [assetId]);
         });
     }
 }
