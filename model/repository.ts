@@ -58,6 +58,13 @@ export const MemeRepository = {
         });
     },
 
+    async updateMeme(meme: MemeEntity) {
+        const { name, content, assetId } = meme;
+        return db.transaction(async tx => {
+            tx.exec("UPDATE Memes SET name=?, content=? WHERE assetId=?", [name, content, assetId]);
+        });
+    },
+
     async removeMeme(assetId: string) {
         return db.transaction(async tx => {
             tx.exec("DELETE FROM Memes WHERE assetId=?", [assetId]);

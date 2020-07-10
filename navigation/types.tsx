@@ -15,6 +15,7 @@ export type MemesParamList = {
   Gallery: undefined;
   Picker: undefined;
   Prepare: { assets: Asset[] };
+  Edit: { meme: MemeEntity };
   Details: { meme: MemeEntity };
 };
 

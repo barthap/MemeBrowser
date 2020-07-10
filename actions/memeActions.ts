@@ -3,7 +3,8 @@ import {
     MEMES_LOAD_FAILURE,
     MEMES_LOAD_SUCCESS,
     ADD_MEMES,
-    DELETE_MEME
+    DELETE_MEME,
+    UPDATE_MEME
 } from "../constants/memeConstants";
 
 import {Action, ActionCreator} from "redux";
@@ -51,11 +52,24 @@ export interface AddMemesSuccessAction extends Action {
 export interface AddMemesFailureAction extends Action {
     type: MEMES_LOAD_FAILURE;
 }
-const add: ActionCreator<AddMemesAction> = (memes: MemeEntity[]) => ({ type: MemeConstants.ADD_MEMES, payload: {memes} });
-const addFailure: ActionCreator<AddMemesFailureAction> = () => ({ type: MemeConstants.ADD_MEMES_FAILURE });
-const addSuccess: ActionCreator<AddMemesSuccessAction> = (newMemes: MemeEntity[]) => ({
+const addMemes: ActionCreator<AddMemesAction> = (memes: MemeEntity[]) => ({ 
+    type: MemeConstants.ADD_MEMES,
+    payload: {memes}
+});
+const addMemesFailure: ActionCreator<AddMemesFailureAction> = () => ({ type: MemeConstants.ADD_MEMES_FAILURE });
+const addMemesSuccess: ActionCreator<AddMemesSuccessAction> = (newMemes: MemeEntity[]) => ({
     type: MemeConstants.ADD_MEMES_SUCCESS,
     payload: { newMemes }
+});
+
+//UPDATE
+export interface UpdateMemeAction extends Action {
+    type: UPDATE_MEME;
+    payload: { meme: MemeEntity };
+}
+const updateMeme: ActionCreator<UpdateMemeAction> = (updated: MemeEntity) => ({
+    type: MemeConstants.UPDATE_MEME,
+    payload: { meme: updated }
 });
 
 //DELETION
@@ -63,10 +77,13 @@ export interface DeleteMemeAction extends Action {
     type: DELETE_MEME;
     payload: { assetId: string };
 }
-const deleteMeme: ActionCreator<DeleteMemeAction>  = (assetId: string) => ({ type: MemeConstants.DELETE_MEME, payload: {assetId}});
+const deleteMeme: ActionCreator<DeleteMemeAction>  = (assetId: string) => ({
+    type: MemeConstants.DELETE_MEME,
+    payload: {assetId}
+});
 
 export const MemeActions = {
     load, loadFailure, loadSuccess,
-    add, addFailure, addSuccess,
-    deleteMeme
+    add: addMemes, addFailure: addMemesFailure, addSuccess: addMemesSuccess,
+    updateMeme, deleteMeme
 };

@@ -9,6 +9,7 @@ export const MemeConstants = {
     ADD_MEMES_SUCCESS: 'ADD_MEMES_SUCCESS',
     ADD_MEMES_FAILURE: 'ADD_MEMES_FAILURE',
 
+    UPDATE_MEME: 'UPDATE_MEME',
     DELETE_MEME: 'DELETE_MEME'
 };
 
@@ -23,4 +24,5 @@ export type ADD_MEMES_SUCCESS = typeof MemeConstants.ADD_MEMES_SUCCESS;
 export type ADD_MEMES_FAILURE = typeof MemeConstants.ADD_MEMES_FAILURE;
 export type ADD_MEMES_STATUS = ADD_MEMES_SUCCESS | ADD_MEMES_FAILURE;
 
+export type UPDATE_MEME = typeof MemeConstants.UPDATE_MEME;
 export type DELETE_MEME = typeof MemeConstants.DELETE_MEME;

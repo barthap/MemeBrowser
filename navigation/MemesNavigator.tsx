@@ -5,6 +5,7 @@ import MemeGalleryScreen from "../screens/MemeGalleryScreen";
 import { MemeDetailsScreen } from "../screens/MemeDetailsScreen";
 import ImagePickerScreen from '../screens/ImagePickerScreen';
 import { PrepareMemesScreen } from '../screens/PrepareMemesScreen';
+import { EditMemeScreen } from '../screens/EditMemeScreen';
 
 const MemesStack = createStackNavigator<MemesParamList>();
 
@@ -25,6 +26,11 @@ export default function MemesNavigator() {
         name="Prepare"
         component={PrepareMemesScreen}
         options={{ headerTitle: 'Prepare memes' }}
+      />
+      <MemesStack.Screen
+        name="Edit"
+        component={EditMemeScreen}
+        options={{ headerTitle: 'Edit meme' }}
       />
       <MemesStack.Screen
         name="Details"

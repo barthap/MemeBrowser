@@ -19,7 +19,7 @@ export function MemeDetailsScreen(props: Props) {
     const { meme } = props.route.params;
 
     const dispatch = useDispatch();
-    const handleDeleteBtnClick = () => {
+    const handleDelete = () => {
         Alert.alert(
             'Confirm',
             'Do you really want to delete this meme?',
@@ -39,18 +39,20 @@ export function MemeDetailsScreen(props: Props) {
                 }
         ]);
     };
+    const handleEdit = () => props.navigation.navigate('Edit', { meme });
 
     props.navigation.setOptions({
         headerRight: ({tintColor}) => ( <View style={styles.iconContainer}>
             <Icon name="edit"
                   type="FontAwesome"
                   style={styles.icon}
-                  color={tintColor}/>
+                  color={tintColor}
+                  onPress={handleEdit}/>
             <Icon name="delete"
                   type="MaterialIcons"
                   style={styles.icon}
                   color={tintColor}
-                  onPress={handleDeleteBtnClick}/>
+                  onPress={handleDelete}/>
             </View>
         )
     });
