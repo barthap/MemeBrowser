@@ -38,8 +38,14 @@ export function MemeForm(props: MemeFormProps) {
     }
     const handleAutoDetect = async () => {
         setLoading(true);
-        const newContent = await fetchPhotoContent(props.meme.assetId, lang);
-        setContent(newContent);
+        try {
+            const newContent = await fetchPhotoContent(props.meme.assetId, lang);
+            setContent(newContent);
+        } catch(e) {
+            console.log('Autodetection error', e);
+            alert('Sorry, an error occurred :(');
+        }
+
         setLoading(false);
     }
     const handleLangChange = (value: string) => setLang(value);
