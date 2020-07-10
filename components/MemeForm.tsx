@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { MemeEntity } from '../model/entity';
 import { StyleSheet, YellowBox } from 'react-native';
-import { Card, CardItem, Text, Left, Body, Item, Input, Textarea, Right, Button, Label } from 'native-base';
+import { Card, CardItem, Text, Left, Body, Item, Input, Textarea, Right, Button, Label, Picker } from 'native-base';
 import { AssetImage } from './AssetImage';
+import { fetchPhotoContent } from '../model/ocrApi';
 
 export interface MemeFormProps {
     meme: MemeEntity;
@@ -17,8 +18,12 @@ export function MemeForm(props: MemeFormProps) {
 
     const [name, setName] = useState('');
     const [content, setContent] = useState('');
+    
+    const [isLoading, setLoading] = useState(false);
+    const [lang, setLang] = useState('eng');
 
     useEffect(() => {
+        setLoading(false);
         setName(props.meme.name);
         setContent(props.meme.content);
     }, [props.meme.assetId]);
@@ -31,7 +36,13 @@ export function MemeForm(props: MemeFormProps) {
             name, content
         });
     }
-    const handleAutoDetect = () => alert('Oops! This feature is not yet available  :(');
+    const handleAutoDetect = async () => {
+        setLoading(true);
+        const newContent = await fetchPhotoContent(props.meme.assetId, lang);
+        setContent(newContent);
+        setLoading(false);
+    }
+    const handleLangChange = (value: string) => setLang(value);
 
     const {info} = props;
 
@@ -73,10 +84,21 @@ export function MemeForm(props: MemeFormProps) {
                               onEndEditing={handleEndEditing}/>
                 </Item>
             </CardItem>
-            <CardItem>
+            <CardItem style={{flexDirection: 'row'}}>
                     <Button info onPress={handleAutoDetect}>
                         <Text>Auto detect</Text>
                     </Button>
+                    {isLoading && <Text>Loading...</Text>}
+            </CardItem>
+            <CardItem style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text>Autodetection language:</Text>
+                <Picker mode="dropdown"
+                        style={{ width: 120 }}
+                        selectedValue={lang}
+                        onValueChange={handleLangChange}>
+                    <Picker.Item label="English" value="eng" />
+                    <Picker.Item label="Polish" value="pol" />
+                </Picker>
             </CardItem>
           </Card>
     );

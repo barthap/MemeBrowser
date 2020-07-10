@@ -11,6 +11,7 @@ npm-debug.*
 *.sql.json
 web-build/
 assets/local
-
+assets/apiKeys.json
+temp/
 # macOS
 .DS_Store

@@ -21,4 +21,5 @@ export type MemesParamList = {
 
 export type SettingsParamList = {
   SettingsScreen: undefined;
+  Debug: undefined;
 };

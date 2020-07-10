@@ -45,9 +45,7 @@ export function PrepareMemesScreen(props: Props) {
     const handlePrevClick = () => canDoPrev && setCurrent(current - 1);
 
     const handleChange = (updatedMeme: MemeEntity) => {
-        console.log('Updated', updatedMeme);
         processedMemes[current] = createMemeEntity(asset, updatedMeme.name, updatedMeme.content);
-        console.log('All', processedMemes);
         setMemes(processedMemes);
     }
 

@@ -4,8 +4,9 @@ import { StyleSheet, Button } from 'react-native';
 import { Text, View } from '../components/Themed';
 import db from '../model/db';
 import { MemeRepository } from '../model/repository';
+import { useLinkProps } from '@react-navigation/native';
 
-export default function SettingsScreen() {
+export default function SettingsScreen({navigation}) {
 
   //this effect is used only for debug purposes
   React.useEffect(() => {
@@ -26,6 +27,7 @@ export default function SettingsScreen() {
         <Text>And this is debug area for testing snippets.</Text>
       </View>
       <Button title="Reset schema" onPress={() => db.reset(false)} />
+      <Button title="Debug screen" onPress={() => navigation.navigate('Debug')} />
     </View>
   );
 }
