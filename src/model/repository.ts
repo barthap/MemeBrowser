@@ -39,7 +39,7 @@ const MemeRepository = {
     },
 
     async addNewMemes(newMemes: MemeEntity[]): Promise<MemeEntity[]> {
-        const currentIds = await this.getAll(true);
+        const currentIds = await MemeRepository.getAll(true);
 
         return db.transaction(async (tx) => {
             // prevent duplicates when user selected the same image again

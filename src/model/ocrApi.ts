@@ -4,7 +4,7 @@ import * as FileSystem from 'expo-file-system';
 import { Platform } from 'react-native';
 
 import { FileSystemUploadType } from 'expo-file-system';
-import apiKeys from '../../assets/apiKeys.json';
+import apiKeys from '../../apiKeys.json';
 
 // https://ocr.space/ocrapi
 const API_URL = 'https://api.ocr.space/parse/image';
@@ -35,7 +35,8 @@ export async function fetchPhotoContent(
         apikey: API_KEY
     };
 
-    if (Platform.OS === 'ios') {
+    //This will be fixed in next Expo SDK
+    /* if (Platform.OS === 'ios' && ) {
         const response = await FileSystem.uploadAsync(
             API_URL,
             localUri as string,
@@ -59,7 +60,7 @@ export async function fetchPhotoContent(
             return Promise.reject(json.ErrorMessage[0]);
 
         return extractTextFromBody(json);
-    } 
+    } */
         const formData = new FormData();
         formData.append('language', langCode);
         formData.append('isOverlayRequired', 'False');
