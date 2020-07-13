@@ -46,7 +46,7 @@ export default function ImagePickerScreen(props: Props) {
         data,
         selected: false
     }));
-    const noItems = images.length === 0 && !camRoll.isLoading;
+    const noItems = images.length === 0 && !camRoll.isRefreshing;
 
     if (!camRoll.permissionsGranted) return <NoPermissionsMessage />;
 
@@ -58,8 +58,10 @@ export default function ImagePickerScreen(props: Props) {
                 <SelectableImageGrid
                     images={images}
                     onSelectedChange={handleSelected}
-                    refreshing={camRoll.isLoading}
+                    refreshing={camRoll.isRefreshing}
+                    loadingMore={camRoll.isLoadingMore}
                     onRefresh={camRoll.doRefresh}
+                    onEndReached={camRoll.loadMore}
                 />
             )}
         </View>

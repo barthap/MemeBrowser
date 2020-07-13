@@ -35,7 +35,6 @@ class SQLiteTransaction implements ITransaction {
      * @param params values to replace ? in query string
      */
     query<T>(sql: string, params?: any[]): Promise<ResultSet<T>> {
-        console.log(sql);
         return new Promise((resolve, reject) => {
             this.transaction.executeSql(
                 sql,
@@ -61,11 +60,10 @@ class SQLiteTransaction implements ITransaction {
      * @param params values to replace ? in query string
      */
     exec(sql: string, params?: any[]): void {
-        console.log(sql);
         this.transaction.executeSql(
             sql,
             params,
-            () => {},
+            () => { console.log('Finished',sql); },
             (_, err) => {
                 if (err.message !== 'Error code 0: not an error') {
                     console.warn('Error when executing', sql);

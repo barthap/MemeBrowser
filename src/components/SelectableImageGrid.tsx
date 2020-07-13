@@ -5,7 +5,8 @@ import {
     View,
     Image,
     RefreshControl,
-    ListRenderItemInfo
+    ListRenderItemInfo,
+    ActivityIndicator
 } from 'react-native';
 import { Asset } from 'expo-media-library';
 import { Badge, Icon } from 'native-base';
@@ -19,6 +20,7 @@ export type SelectableAsset = SelectableItem<Asset>;
 export interface ImageGridProps {
     images: SelectableAsset[];
     refreshing?: boolean;
+    loadingMore?: boolean;
     onSelectedChange?: (items: Asset[]) => void;
     onRefresh?: () => void;
     onEndReached?: () => void;
@@ -76,16 +78,19 @@ export function SelectableImageGrid(props: ImageGridProps) {
 
     return (
         <FlatList
-            data={props.images}
-            extraData={selectedItems}
-            refreshControl={refreshControl}
-            onEndReached={props.onEndReached}
-            onEndReachedThreshold={0.15}
-            windowSize={11}
-            renderItem={renderItem}
-            numColumns={3}
-            keyExtractor={(item) => item.data.id}
-        />
+                    data={props.images}
+                    extraData={[selectedItems, props.loadingMore]}
+                    refreshControl={refreshControl}
+                    onEndReached={props.onEndReached}
+                    onEndReachedThreshold={0.20}
+                    windowSize={11}
+                    renderItem={renderItem}
+                    numColumns={3}
+                    initialNumToRender={20}
+                    keyExtractor={(item) => item.data.id}
+    ListFooterComponent={(<View style={{flex: 1, justifyContent: 'center', height: 30}}>{props.loadingMore && <ActivityIndicator animating size='small'/>}</View>)}
+                />
+  
     );
 }
 
