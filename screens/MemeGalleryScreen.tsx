@@ -34,13 +34,14 @@ export default function MemeGalleryScreen(props: Props) {
   });
 
 
-  const [state, reload] = useMemeList(true);
+  const [state, reload, setFilter] = useMemeList(true);
 
   const noItems = state.memes.length === 0 && !state.loading;
   const itemPressed = (meme: MemeEntity) => props.navigation.navigate('Details', {meme});
 
   return (
     <View style={styles.container}>
+      <SearchBar onTextChanged={setFilter} />
       {noItems ? <NoItemsMessage handleRefresh={reload} /> :
         <MemeGrid memes={state.memes}
                   refreshing={state.loading}

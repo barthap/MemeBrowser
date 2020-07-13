@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import {View, Text, StyleSheet, Image, Alert, Button} from "react-native";
-import {Container, Content, H1, Icon } from "native-base";
+import {View, Button} from "react-native";
+import {Container, Content } from "native-base";
 import {StackNavigationProp} from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { MemesParamList } from "../navigation/types";
-import { AssetImage } from "../components/AssetImage";
 import { useDispatch } from "react-redux";
 import { MemeActions } from "../actions/memeActions";
 import { MemeForm } from "../components/MemeForm";

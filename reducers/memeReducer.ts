@@ -44,13 +44,8 @@ export const memeReducer: Reducer<MemeState, AnyAction> = (state: MemeState = in
         case MemeConstants.UPDATE_MEME:
             return {
                 ...state,
-                memes: [
-                    //all memes but updated
-                    ...state.memes.filter(m => m.assetId !== action.payload.meme.asssetId),
-
-                    //updated one
-                    action.payload.meme
-                ]
+                memes: state.memes
+                    .map(meme => (meme.assetId === action.payload.meme.assetId) ? action.payload.meme : meme)
             }
 
         //DELETE
