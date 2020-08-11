@@ -13,120 +13,96 @@ import { MemeActions } from '../../actions/memeActions';
 type PrepareStackNavProp = StackNavigationProp<MemesParamList, 'Prepare'>;
 type PrepareScreenRouteProp = RouteProp<MemesParamList, 'Prepare'>;
 type Props = {
-    navigation: PrepareStackNavProp;
-    route: PrepareScreenRouteProp;
+  navigation: PrepareStackNavProp;
+  route: PrepareScreenRouteProp;
 };
 
-const createMemeEntity = (
-    asset: Asset,
-    name: string = '',
-    content: string = ''
-): MemeEntity => ({
-    assetId: asset.id,
-    uri: asset.uri,
-    createdAt: asset.creationTime.toString(),
-    name,
-    content
+const createMemeEntity = (asset: Asset, name = '', content = ''): MemeEntity => ({
+  assetId: asset.id,
+  uri: asset.uri,
+  createdAt: asset.creationTime.toString(),
+  name,
+  content,
 });
 
 export default function PrepareMemesScreen(props: Props) {
-    /* TODO: !important
-     * Move logic outside component and cleanup code
-     */
+  /* TODO: !important
+   * Move logic outside component and cleanup code
+   */
 
-    const { assets } = props.route.params;
-    const [processedMemes, setMemes] = React.useState(
-        assets.map((asset) => createMemeEntity(asset))
-    );
+  const { assets } = props.route.params;
+  const [processedMemes, setMemes] = React.useState(assets.map((asset) => createMemeEntity(asset)));
 
-    const [current, setCurrent] = useState(0);
-    const asset = assets[current];
+  const [current, setCurrent] = useState(0);
+  const asset = assets[current];
 
-    const currentMeme = processedMemes[current];
+  const currentMeme = processedMemes[current];
 
-    const canDoNext = current < assets.length - 1;
-    const canDoPrev = current > 0;
-    const handleNextClick = () => canDoNext && setCurrent(current + 1);
-    const handlePrevClick = () => canDoPrev && setCurrent(current - 1);
+  const canDoNext = current < assets.length - 1;
+  const canDoPrev = current > 0;
+  const handleNextClick = () => canDoNext && setCurrent(current + 1);
+  const handlePrevClick = () => canDoPrev && setCurrent(current - 1);
 
-    const handleChange = (updatedMeme: MemeEntity) => {
-        processedMemes[current] = createMemeEntity(
-            asset,
-            updatedMeme.name,
-            updatedMeme.content
-        );
-        setMemes(processedMemes);
-    };
+  const handleChange = (updatedMeme: MemeEntity) => {
+    processedMemes[current] = createMemeEntity(asset, updatedMeme.name, updatedMeme.content);
+    setMemes(processedMemes);
+  };
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const handleDonePress = () => {
-        dispatch(MemeActions.add(processedMemes));
-        props.navigation.replace('Gallery');
-    };
+  const handleDonePress = () => {
+    dispatch(MemeActions.add(processedMemes));
+    props.navigation.replace('Gallery');
+  };
 
-    props.navigation.setOptions({
-        headerRight: () => (
-            <View>
-                <NativeButton onPress={handleDonePress} title="Done" />
-            </View>
-        )
-    });
+  props.navigation.setOptions({
+    headerRight: () => (
+      <View>
+        <NativeButton onPress={handleDonePress} title="Done" />
+      </View>
+    ),
+  });
 
-    return (
-        <Container>
-            <Content>
-                <MemeForm
-                    meme={currentMeme}
-                    info={{ current: current + 1, total: assets.length }}
-                    onChange={handleChange}
-                />
-                <View style={styles.buttonsContainer}>
-                    <Button
-                        info
-                        style={styles.navButton}
-                        disabled={!canDoPrev}
-                        onPress={handlePrevClick}
-                    >
-                        <Text>Prev</Text>
-                    </Button>
-                    <Button
-                        info
-                        style={styles.navButton}
-                        disabled={!canDoNext}
-                        onPress={handleNextClick}
-                    >
-                        <Text>Next</Text>
-                    </Button>
-                </View>
-            </Content>
-        </Container>
-    );
+  return (
+    <Container>
+      <Content>
+        <MemeForm meme={currentMeme} info={{ current: current + 1, total: assets.length }} onChange={handleChange} />
+        <View style={styles.buttonsContainer}>
+          <Button info style={styles.navButton} disabled={!canDoPrev} onPress={handlePrevClick}>
+            <Text>Prev</Text>
+          </Button>
+          <Button info style={styles.navButton} disabled={!canDoNext} onPress={handleNextClick}>
+            <Text>Next</Text>
+          </Button>
+        </View>
+      </Content>
+    </Container>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    text: {
-        padding: 10
-    },
-    icon: {
-        paddingRight: 15
-    },
-    iconContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        width: 100
-    },
-    buttonsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    navButton: {
-        width: '20%',
-        justifyContent: 'space-evenly'
-    }
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    padding: 10,
+  },
+  icon: {
+    paddingRight: 15,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: 100,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  navButton: {
+    width: '20%',
+    justifyContent: 'space-evenly',
+  },
 });

@@ -71,9 +71,9 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "prettier --check **/*.{js,ts,tsx,json}",
-      "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "src/**/*.{js,ts,tsx}": [
+      "prettier --check",
+      "eslint --fix",
       "git add"
     ]
   }

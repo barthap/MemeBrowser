@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { memeReducer } from './memeReducer';
 
 const rootReducer = combineReducers({
-    memes: memeReducer
+  memes: memeReducer,
 });
 
 export default rootReducer;

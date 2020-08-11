@@ -7,18 +7,10 @@ import DebugScreen from '../screens/DebugScreen';
 const SettingsStack = createStackNavigator<SettingsParamList>();
 
 export default function SettingsNavigator() {
-    return (
-        <SettingsStack.Navigator>
-            <SettingsStack.Screen
-                name="SettingsScreen"
-                component={SettingsScreen}
-                options={{ headerTitle: 'Settings' }}
-            />
-            <SettingsStack.Screen
-                name="Debug"
-                component={DebugScreen}
-                options={{ headerTitle: 'Debug' }}
-            />
-        </SettingsStack.Navigator>
-    );
+  return (
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen name="SettingsScreen" component={SettingsScreen} options={{ headerTitle: 'Settings' }} />
+      <SettingsStack.Screen name="Debug" component={DebugScreen} options={{ headerTitle: 'Debug' }} />
+    </SettingsStack.Navigator>
+  );
 }

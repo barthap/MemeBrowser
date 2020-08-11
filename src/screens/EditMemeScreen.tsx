@@ -12,36 +12,36 @@ import { MemeEntity } from '../model/entity';
 type EditScreenStackNavProp = StackNavigationProp<MemesParamList, 'Details'>;
 type EditScreenRouteProp = RouteProp<MemesParamList, 'Details'>;
 type Props = {
-    navigation: EditScreenStackNavProp;
-    route: EditScreenRouteProp;
+  navigation: EditScreenStackNavProp;
+  route: EditScreenRouteProp;
 };
 
 export default function EditMemeScreen(props: Props) {
-    props.navigation.setOptions({
-        headerRight: () => (
-            <View>
-                <Button title="Save" onPress={handleSave} />
-            </View>
-        )
-    });
+  props.navigation.setOptions({
+    headerRight: () => (
+      <View>
+        <Button title="Save" onPress={handleSave} />
+      </View>
+    ),
+  });
 
-    const [meme, setMeme] = useState(props.route.params.meme);
+  const [meme, setMeme] = useState(props.route.params.meme);
 
-    const dispatch = useDispatch();
-    const handleSave = () => {
-        dispatch(MemeActions.updateMeme(meme));
+  const dispatch = useDispatch();
+  const handleSave = () => {
+    dispatch(MemeActions.updateMeme(meme));
 
-        // replace navigation history with new details screen
-        props.navigation.replace('Gallery');
-        props.navigation.push('Details', { meme });
-    };
-    const handleUpdate = (updated: MemeEntity) => setMeme(updated);
+    // replace navigation history with new details screen
+    props.navigation.replace('Gallery');
+    props.navigation.push('Details', { meme });
+  };
+  const handleUpdate = (updated: MemeEntity) => setMeme(updated);
 
-    return (
-        <Container>
-            <Content>
-                <MemeForm meme={meme} onChange={handleUpdate} />
-            </Content>
-        </Container>
-    );
+  return (
+    <Container>
+      <Content>
+        <MemeForm meme={meme} onChange={handleUpdate} />
+      </Content>
+    </Container>
+  );
 }

@@ -11,80 +11,68 @@ import { MemeActions } from '../../actions/memeActions';
 type DetailsStackNavProp = StackNavigationProp<MemesParamList, 'Details'>;
 type DetailsScreenRouteProp = RouteProp<MemesParamList, 'Details'>;
 type Props = {
-    navigation: DetailsStackNavProp;
-    route: DetailsScreenRouteProp;
+  navigation: DetailsStackNavProp;
+  route: DetailsScreenRouteProp;
 };
 
 export default function MemeDetailsScreen(props: Props) {
-    const { meme } = props.route.params;
+  const { meme } = props.route.params;
 
-    const dispatch = useDispatch();
-    const handleDelete = () => {
-        Alert.alert('Confirm', 'Do you really want to delete this meme?', [
-            {
-                text: 'No',
-                onPress: () => console.log('Cancelled deletion'),
-                style: 'cancel'
-            },
-            {
-                text: 'Yes',
-                onPress: () => {
-                    dispatch(MemeActions.deleteMeme(meme.assetId));
-                    props.navigation.goBack();
-                },
-                style: 'destructive'
-            }
-        ]);
-    };
-    const handleEdit = () => props.navigation.navigate('Edit', { meme });
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    Alert.alert('Confirm', 'Do you really want to delete this meme?', [
+      {
+        text: 'No',
+        onPress: () => console.log('Cancelled deletion'),
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => {
+          dispatch(MemeActions.deleteMeme(meme.assetId));
+          props.navigation.goBack();
+        },
+        style: 'destructive',
+      },
+    ]);
+  };
+  const handleEdit = () => props.navigation.navigate('Edit', { meme });
 
-    props.navigation.setOptions({
-        headerRight: ({ tintColor }) => (
-            <View style={styles.iconContainer}>
-                <Icon
-                    name="edit"
-                    type="FontAwesome"
-                    style={styles.icon}
-                    color={tintColor}
-                    onPress={handleEdit}
-                />
-                <Icon
-                    name="delete"
-                    type="MaterialIcons"
-                    style={styles.icon}
-                    color={tintColor}
-                    onPress={handleDelete}
-                />
-            </View>
-        )
-    });
+  props.navigation.setOptions({
+    headerRight: ({ tintColor }) => (
+      <View style={styles.iconContainer}>
+        <Icon name="edit" type="FontAwesome" style={styles.icon} color={tintColor} onPress={handleEdit} />
+        <Icon name="delete" type="MaterialIcons" style={styles.icon} color={tintColor} onPress={handleDelete} />
+      </View>
+    ),
+  });
 
-    return (
-        <Container>
-            <Content style={styles.text}>
-                <AssetImage id={meme.assetId} uri={meme.uri} />
-                <H1 style={styles.text}>{meme.name}</H1>
-                <Text style={styles.text}>{meme.content}</Text>
-            </Content>
-        </Container>
-    );
+  return (
+    <Container>
+      <Content style={styles.text}>
+        <AssetImage id={meme.assetId} uri={meme.uri} />
+        <H1 style={styles.text}>{meme.name}</H1>
+        <Text style={styles.text}>{meme.content}</Text>
+      </Content>
+    </Container>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    text: {
-        padding: 10
-    },
-    icon: {
-        paddingRight: 15
-    },
-    iconContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        width: 100
-    }
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    padding: 10,
+  },
+  icon: {
+    paddingRight: 15,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: 100,
+  },
 });

@@ -18,18 +18,18 @@ const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
 export default function App() {
-    const isLoadingComplete = useCachedResources();
-    const colorScheme = useColorScheme();
+  const isLoadingComplete = useCachedResources();
+  const colorScheme = useColorScheme();
 
-    if (!isLoadingComplete) {
-        return null;
-    }
-    return (
-        <Provider store={store}>
-            <SafeAreaProvider>
-                <Navigation colorScheme={colorScheme} />
-                <StatusBar />
-            </SafeAreaProvider>
-        </Provider>
-    );
+  if (!isLoadingComplete) {
+    return null;
+  }
+  return (
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar />
+      </SafeAreaProvider>
+    </Provider>
+  );
 }
