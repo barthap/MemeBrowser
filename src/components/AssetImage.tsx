@@ -14,7 +14,7 @@ export function AssetImage(props: AssetImageProps) {
   const [aspectRatio, setAspectRatio] = useState(1);
 
   useEffect(() => {
-    MediaLibrary.getAssetInfoAsync(props.id).then((info) => setAspectRatio(info.width / info.height));
+    MediaLibrary.getAssetInfoAsync(props.id).then((info) => setAspectRatio(info ? info.width / info.height : 1));
   }, [props.id]);
 
   const sizedStyle: StyleProp<ImageStyle> = {

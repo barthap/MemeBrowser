@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware } from 'redux';
+import { Provider as PaperProvider, DarkTheme, DefaultTheme } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
@@ -21,15 +22,18 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
+  //const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+  const theme = DefaultTheme;
+
   if (!isLoadingComplete) {
     return null;
   }
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
+      <PaperProvider theme={theme}>
+        <Navigation />
         <StatusBar />
-      </SafeAreaProvider>
+      </PaperProvider>
     </Provider>
   );
 }

@@ -70,7 +70,10 @@ export async function fetchPhotoContent(assetId: string, langCode = 'eng'): Prom
     headers: uploadHeaders,
   });
 
-  if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+  if (!response.ok) {
+    response.body && console.warn(response.body);
+    throw new Error(`HTTP error: ${response.status}`);
+  }
 
   const json = await response.json();
 

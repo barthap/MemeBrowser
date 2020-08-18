@@ -1,7 +1,8 @@
-/* eslint-disable no-underscore-dangle */
 import { delay } from '../util/quickUtils';
 import db from './db';
 import { MemeEntity } from './entity';
+
+import { Asset } from 'expo-asset';
 
 const fakeData: MemeEntity[] = [
   { assetId: '1', uri: '', name: 'Img 1', content: 'meme 1', createdAt: '' },
@@ -19,12 +20,18 @@ const MemeRepository = {
     return Promise.resolve(fakeData);
   },
 
-  async getAll(onlyIds = false): Promise<MemeEntity[]> {
-    return db.transaction(async (tx) => {
+  async getAll(): Promise<MemeEntity[]> {
+    /*return db.transaction(async (tx) => {
       const sql = `select ${onlyIds ? 'assetId' : '*'} from Memes`;
       const res = await tx.query(sql);
       return res.rows._array as MemeEntity[];
-    });
+    });*/
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const asset = Asset.fromModule(require('../../assets/images/doge.jpg'));
+    await asset.downloadAsync();
+
+    return Promise.resolve(fakeData.map((it) => ({ ...it, uri: asset.localUri as string })));
   },
 
   async getMoreLike(phrase: string): Promise<MemeEntity[]> {
@@ -39,7 +46,7 @@ const MemeRepository = {
   },
 
   async addNewMemes(newMemes: MemeEntity[]): Promise<MemeEntity[]> {
-    const currentIds = await MemeRepository.getAll(true);
+    const currentIds = await MemeRepository.getAll();
 
     return db.transaction(async (tx) => {
       // prevent duplicates when user selected the same image again

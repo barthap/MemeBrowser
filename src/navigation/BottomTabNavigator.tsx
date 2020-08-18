@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import * as React from 'react';
 
@@ -9,25 +9,25 @@ import { BottomTabParamList } from './types';
 import MemesNavigator from './MemesNavigator';
 import SettingsNavigator from './SettingsNavigator';
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    <BottomTab.Navigator initialRouteName="Memes" tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+    <BottomTab.Navigator initialRouteName="Memes" shifting={true}>
       <BottomTab.Screen
         name="Memes"
         component={MemesNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-heart" color={color} />,
+          tabBarIcon: 'heart',
         }}
       />
       <BottomTab.Screen
         name="Settings"
         component={SettingsNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-settings" color={color} />,
+          tabBarIcon: 'settings',
         }}
       />
     </BottomTab.Navigator>

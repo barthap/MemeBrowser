@@ -23,6 +23,7 @@ export const memeReducer: Reducer<MemeState, AnyAction> = (state: MemeState = in
     case MemeConstants.MEMES_LOAD_SUCCESS: {
       const { payload } = <MemesLoadSuccessAction>action;
       const { memes } = payload;
+      console.log('succ');
       return { ...state, loading: false, error: false, memes };
     }
     case MemeConstants.MEMES_LOAD_FAILURE:

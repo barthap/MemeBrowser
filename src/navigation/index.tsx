@@ -7,9 +7,9 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from './types';
 import BottomTabNavigator from './BottomTabNavigator';
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export default function Navigation() {
   return (
-    <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <NavigationContainer theme={DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
