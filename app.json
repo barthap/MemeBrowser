@@ -1,8 +1,13 @@
 {
   "expo": {
-    "name": "MemeBrowser",
-    "slug": "MemeBrowser",
-    "version": "1.0.0",
+    "name": "Meme Browser",
+    "slug": "meme-browser",
+    "version": "0.1.0",
+    "description": "Image gallery app with search-by-text feature.",
+    "githubUrl": "https://github.com/barthap/MemeBrowser",
+    "privacy": "public",
+    "sdkVersion": "38.0.0",
+    "platforms": ["ios", "android"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,14 +18,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "experiments": {
+      "redesignedLogBox": true
     }
   }
 }
