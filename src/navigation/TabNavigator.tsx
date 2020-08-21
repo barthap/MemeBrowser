@@ -8,8 +8,20 @@ const Tab = createMaterialBottomTabNavigator<TabNavParams>();
 
 const TabNavigator = () => (
   <Tab.Navigator>
-    <Tab.Screen name="Gallery" component={GalleryNavigator} />
-    <Tab.Screen name="Explore" component={ExploringNavigator} />
+    <Tab.Screen
+      name="Gallery"
+      component={GalleryNavigator}
+      options={{
+        tabBarIcon: 'image-album',
+      }}
+    />
+    <Tab.Screen
+      name="Explore"
+      component={ExploringNavigator}
+      options={{
+        tabBarIcon: 'image-search-outline',
+      }}
+    />
   </Tab.Navigator>
 );
 

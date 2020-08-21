@@ -7,21 +7,30 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import RootNavigator from './navigation/RootNavigator';
 import DrawerContent from './screens/DrawerContent';
 import { DrawerNavParams } from './navigation/navigation.types';
+import useAppTheme from './hooks/useAppTheme';
 
 const Drawer = createDrawerNavigator<DrawerNavParams>();
-const DrawerNavigator = () => (
-  <Drawer.Navigator drawerContent={(props) => <DrawerContent navigation={props.navigation} />}>
+
+type DrawerNavigatorProps = { toggleTheme: () => void; isDarkTheme: boolean };
+const DrawerNavigator = ({ toggleTheme, isDarkTheme }: DrawerNavigatorProps) => (
+  <Drawer.Navigator
+    drawerContent={(drawerProps) => (
+      <DrawerContent navigation={drawerProps.navigation} toggleTheme={toggleTheme} isDarkTheme={isDarkTheme} />
+    )}
+  >
     <Drawer.Screen name="Main" component={RootNavigator} />
   </Drawer.Navigator>
 );
 
 export default function AppMain() {
+  const { isDarkTheme, theme, toggleTheme } = useAppTheme();
+
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <SafeAreaProvider>
-        <NavigationContainer>
-          <DrawerNavigator />
-          <StatusBar style="auto" />
+        <NavigationContainer theme={theme}>
+          <DrawerNavigator isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
+          <StatusBar style={isDarkTheme ? 'inverted' : 'light'} />
         </NavigationContainer>
       </SafeAreaProvider>
     </PaperProvider>

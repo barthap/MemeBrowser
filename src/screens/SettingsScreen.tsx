@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
+import ThemedView from '../components/ThemedView';
 
 export default function SettingsScreen() {
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <Text>This section is work in progress!</Text>
-    </View>
+    </ThemedView>
   );
 }
 
