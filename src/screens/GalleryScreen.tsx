@@ -8,7 +8,12 @@ import ThemedView from '../components/ThemedView';
 export default function GalleryScreen({ navigation }: GalleryScreenNavProps) {
   navigation.setOptions({
     headerTitle: 'Your memes',
-    headerRight: () => <Appbar.Action icon="magnify" />,
+    headerRight: ({ tintColor }) => (
+      <>
+        <Appbar.Action icon="magnify" color={tintColor} />
+        <Appbar.Action icon="image-plus" onPress={() => navigation.navigate('Picker')} color={tintColor} />
+      </>
+    ),
   });
 
   return (

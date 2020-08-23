@@ -20,6 +20,7 @@ export type TabNavParams = {
 
 export type GalleryNavParams = {
   GalleryHome: undefined;
+  Picker: undefined;
 };
 
 export type ExploreNavParams = {
@@ -64,6 +65,11 @@ export type SettingsScreenNavProps = {
 export type GalleryScreenNavProps = {
   navigation: GalleryNavProp<'GalleryHome'>;
   route: RouteProp<GalleryNavParams, 'GalleryHome'>;
+};
+
+export type PickerScreenNavProps = {
+  navigation: GalleryNavProp<'Picker'>;
+  route: RouteProp<GalleryNavParams, 'Picker'>;
 };
 
 export type ExploreScreenNavProps = {
