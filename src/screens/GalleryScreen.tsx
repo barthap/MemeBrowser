@@ -2,9 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { GalleryScreenNavProps } from '../navigation/navigation.types';
 import { Appbar } from 'react-native-paper';
-import { Text } from 'react-native-paper';
-import ThemedView from '../components/ThemedView';
-
+import { ImageGrid } from '../components/ImageGrid';
+import useTypedSelector from '../hooks/useTypedSelector';
 export default function GalleryScreen({ navigation }: GalleryScreenNavProps) {
   navigation.setOptions({
     headerTitle: 'Your memes',
@@ -16,12 +15,9 @@ export default function GalleryScreen({ navigation }: GalleryScreenNavProps) {
     ),
   });
 
-  return (
-    <ThemedView style={styles.container}>
-      <Text>This section is work in progress!</Text>
-      <Text>Memes go here</Text>
-    </ThemedView>
-  );
+  const memes = useTypedSelector((state) => state.memes);
+
+  return <ImageGrid memes={memes} />;
 }
 
 const styles = StyleSheet.create({

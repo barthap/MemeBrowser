@@ -8,21 +8,30 @@ import { useCameraRoll } from '../hooks/useCameraRoll';
 import View from '../components/ThemedView';
 import { Text, Button, FAB } from 'react-native-paper';
 import { PickerScreenNavProps } from '../navigation/navigation.types';
+import { MemeType } from '../core/interafaces';
+import { useDispatch } from 'react-redux';
+import { addMemes } from '../core/redux/MemeSlice';
 
 export default function ImagePickerScreen(props: PickerScreenNavProps) {
   const camRoll = useCameraRoll();
-  const [canGo, setCanGo] = React.useState(false);
+  const dispatch = useDispatch();
+  const [items, setItems] = React.useState<MediaLibrary.Asset[]>([]);
 
-  const handleSelected = (items: MediaLibrary.Asset[]) => {
-    setCanGo(items.length > 0);
+  const handleSelected = (selectedItems: MediaLibrary.Asset[]) => {
+    setItems(selectedItems);
     props.navigation.setOptions({
-      headerTitle: `Add Memes$${items.length} items selected`,
+      headerTitle: `Add Memes$${selectedItems.length} items selected`,
     });
   };
 
   const noItems = camRoll.images.length === 0 && !camRoll.isRefreshing;
 
   if (!camRoll.permissionsGranted) return <NoPermissionsMessage />;
+
+  const onContinue = () => {
+    dispatch(addMemes(items.map(({ id, uri }) => ({ id, uri, type: MemeType.Gallery }))));
+    props.navigation.replace('GalleryHome');
+  };
 
   return (
     <View style={styles.container}>
@@ -38,7 +47,7 @@ export default function ImagePickerScreen(props: PickerScreenNavProps) {
           onEndReached={camRoll.loadMore}
         />
       )}
-      <FAB label="Add ..." icon="check-bold" style={styles.fab} visible={canGo} />
+      <FAB label="Add ..." icon="check-bold" style={styles.fab} visible={items.length > 0} onPress={onContinue} />
     </View>
   );
 }

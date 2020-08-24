@@ -8,6 +8,8 @@ import RootNavigator from './navigation/RootNavigator';
 import DrawerContent from './screens/DrawerContent';
 import { DrawerNavParams } from './navigation/navigation.types';
 import useAppTheme from './hooks/useAppTheme';
+import { Provider as ReduxProvider } from 'react-redux';
+import reduxStore from './core/redux';
 
 const Drawer = createDrawerNavigator<DrawerNavParams>();
 
@@ -26,13 +28,15 @@ export default function AppMain() {
   const { isDarkTheme, theme, toggleTheme } = useAppTheme();
 
   return (
-    <PaperProvider theme={theme}>
-      <SafeAreaProvider>
-        <NavigationContainer theme={theme}>
-          <DrawerNavigator isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
-          <StatusBar style={isDarkTheme ? 'inverted' : 'light'} />
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </PaperProvider>
+    <ReduxProvider store={reduxStore}>
+      <PaperProvider theme={theme}>
+        <SafeAreaProvider>
+          <NavigationContainer theme={theme}>
+            <DrawerNavigator isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
+            <StatusBar style={isDarkTheme ? 'inverted' : 'light'} />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </PaperProvider>
+    </ReduxProvider>
   );
 }
