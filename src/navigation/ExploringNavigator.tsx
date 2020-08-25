@@ -9,7 +9,7 @@ const ExploreStack = createStackNavigator<ExploreNavParams>();
 const ExploringNavigator = () => {
   const header = useNavHeader();
   return (
-    <ExploreStack.Navigator screenOptions={{ header }}>
+    <ExploreStack.Navigator screenOptions={{ header }} headerMode="screen">
       <ExploreStack.Screen name="ExploreHome" component={ExploreScreen} options={{ headerTitle: 'Explore' }} />
     </ExploreStack.Navigator>
   );

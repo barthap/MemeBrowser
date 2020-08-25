@@ -13,11 +13,22 @@ import reduxStore from './core/redux';
 
 const Drawer = createDrawerNavigator<DrawerNavParams>();
 
-type DrawerNavigatorProps = { toggleTheme: () => void; isDarkTheme: boolean };
-const DrawerNavigator = ({ toggleTheme, isDarkTheme }: DrawerNavigatorProps) => (
+type DrawerNavigatorProps = {
+  toggleTheme: () => void;
+  isDarkTheme: boolean;
+  isAutoTheme: boolean;
+  toggleAutoTheme: () => void;
+};
+const DrawerNavigator = ({ toggleTheme, isDarkTheme, isAutoTheme, toggleAutoTheme }: DrawerNavigatorProps) => (
   <Drawer.Navigator
     drawerContent={(drawerProps) => (
-      <DrawerContent navigation={drawerProps.navigation} toggleTheme={toggleTheme} isDarkTheme={isDarkTheme} />
+      <DrawerContent
+        navigation={drawerProps.navigation}
+        toggleTheme={toggleTheme}
+        isDarkTheme={isDarkTheme}
+        isAutoTheme={isAutoTheme}
+        toggleAutoTheme={toggleAutoTheme}
+      />
     )}
   >
     <Drawer.Screen name="Main" component={RootNavigator} />
@@ -25,15 +36,20 @@ const DrawerNavigator = ({ toggleTheme, isDarkTheme }: DrawerNavigatorProps) => 
 );
 
 export default function AppMain() {
-  const { isDarkTheme, theme, toggleTheme } = useAppTheme();
+  const { isDarkTheme, isAutoTheme, toggleAutoTheme, theme, toggleTheme } = useAppTheme();
 
   return (
     <ReduxProvider store={reduxStore}>
       <PaperProvider theme={theme}>
         <SafeAreaProvider>
           <NavigationContainer theme={theme}>
-            <DrawerNavigator isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
-            <StatusBar style={isDarkTheme ? 'inverted' : 'light'} />
+            <DrawerNavigator
+              isDarkTheme={isDarkTheme}
+              toggleTheme={toggleTheme}
+              toggleAutoTheme={toggleAutoTheme}
+              isAutoTheme={isAutoTheme}
+            />
+            <StatusBar style={isDarkTheme ? 'light' : 'light'} />
           </NavigationContainer>
         </SafeAreaProvider>
       </PaperProvider>

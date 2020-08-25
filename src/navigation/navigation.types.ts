@@ -2,6 +2,7 @@ import { CompositeNavigationProp, RouteProp, ParamListBase } from '@react-naviga
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import { IMeme } from '../core/interafaces';
 
 export type DrawerNavParams = {
   Main: SubNavigator<RootStackParams>;
@@ -21,6 +22,7 @@ export type TabNavParams = {
 export type GalleryNavParams = {
   GalleryHome: undefined;
   Picker: undefined;
+  Details: { meme: IMeme };
 };
 
 export type ExploreNavParams = {
@@ -57,10 +59,14 @@ type ExploreNavProp<T extends keyof ExploreNavParams> = CompositeNavigationProp<
   TabNavProp<'Explore'>
 >;
 
+// Root Navigator Screens
+
 export type SettingsScreenNavProps = {
   navigation: RootStackNavProp<'Settings'>;
   route: RouteProp<RootStackParams, 'Settings'>;
 };
+
+/// Gallery Navigator Screens
 
 export type GalleryScreenNavProps = {
   navigation: GalleryNavProp<'GalleryHome'>;
@@ -71,6 +77,13 @@ export type PickerScreenNavProps = {
   navigation: GalleryNavProp<'Picker'>;
   route: RouteProp<GalleryNavParams, 'Picker'>;
 };
+
+export type DetailsScreenNavProps = {
+  navigation: GalleryNavProp<'Details'>;
+  route: RouteProp<GalleryNavParams, 'Details'>;
+};
+
+// Explore Navigator Screens
 
 export type ExploreScreenNavProps = {
   navigation: ExploreNavProp<'ExploreHome'>;

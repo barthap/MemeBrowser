@@ -9,8 +9,10 @@ type Props = {
   navigation: DrawerNavigationHelpers;
   toggleTheme: () => void;
   isDarkTheme: boolean;
+  isAutoTheme: boolean;
+  toggleAutoTheme: () => void;
 };
-const DrawerContent = ({ navigation, toggleTheme, isDarkTheme }: Props) => (
+const DrawerContent = ({ navigation, toggleTheme, toggleAutoTheme, isAutoTheme, isDarkTheme }: Props) => (
   <View style={styles.drawerContent}>
     <Drawer.Section>
       <DrawerItem
@@ -22,11 +24,19 @@ const DrawerContent = ({ navigation, toggleTheme, isDarkTheme }: Props) => (
       />
     </Drawer.Section>
     <Drawer.Section title="Preferences">
-      <TouchableRipple onPress={toggleTheme}>
+      <TouchableRipple onPress={toggleAutoTheme}>
+        <View style={styles.preference}>
+          <Text>Auto Theme</Text>
+          <View pointerEvents="none">
+            <Switch value={isAutoTheme} />
+          </View>
+        </View>
+      </TouchableRipple>
+      <TouchableRipple onPress={toggleTheme} disabled={isAutoTheme}>
         <View style={styles.preference}>
           <Text>Dark Theme</Text>
           <View pointerEvents="none">
-            <Switch value={isDarkTheme} />
+            <Switch value={isDarkTheme} disabled={isAutoTheme} />
           </View>
         </View>
       </TouchableRipple>

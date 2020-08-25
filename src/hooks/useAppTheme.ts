@@ -2,6 +2,7 @@ import React from 'react';
 import { DarkTheme as PaperDarkTheme, DefaultTheme as PaperDefaultTheme } from 'react-native-paper';
 import { DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { useColorScheme } from 'react-native-appearance';
 
 const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
@@ -14,9 +15,10 @@ const CombinedDarkTheme = {
   colors: { ...PaperDarkTheme.colors, ...NavigationDarkTheme.colors },
 };
 
-const THEME_KEY = 'THEME';
+const THEME_KEY = 'THEME_PREFERENCES';
 
 export default function useAppTheme() {
+  const [isAutoTheme, setIsAutoTheme] = React.useState(true);
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
   React.useEffect(() => {
@@ -27,9 +29,10 @@ export default function useAppTheme() {
 
         if (preferences) {
           setIsDarkTheme(preferences.theme === 'dark');
+          setIsAutoTheme(preferences.auto === 'yes');
         }
       } catch (e) {
-        // ignore error
+        console.warn('Couldnt restore theme', e);
       }
     };
 
@@ -43,22 +46,29 @@ export default function useAppTheme() {
           THEME_KEY,
           JSON.stringify({
             theme: isDarkTheme ? 'dark' : 'light',
+            auto: isAutoTheme ? 'yes' : 'no',
           }),
         );
       } catch (e) {
-        // ignore error
+        console.warn('Couldnt save theme', e);
       }
     };
 
     saveTheme();
   }, [isDarkTheme]);
 
-  const theme = isDarkTheme ? CombinedDarkTheme : CombinedDefaultTheme; // Use Light/Dark theme based on a state
+  const detectedTheme = useColorScheme();
+  const shouldSetDarkTheme = isAutoTheme ? detectedTheme === 'dark' : isDarkTheme;
+  const theme = shouldSetDarkTheme ? CombinedDarkTheme : CombinedDefaultTheme; // Use Light/Dark theme based on a state
 
   function toggleTheme() {
     // We will pass this function to Drawer and invoke it on theme switch press
     setIsDarkTheme((isDark) => !isDark);
   }
 
-  return { isDarkTheme, theme, toggleTheme };
+  function toggleAutoTheme() {
+    setIsAutoTheme((val) => !val);
+  }
+
+  return { isDarkTheme: shouldSetDarkTheme, isAutoTheme, theme, toggleTheme, toggleAutoTheme };
 }

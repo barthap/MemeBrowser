@@ -29,7 +29,17 @@ export default function ImagePickerScreen(props: PickerScreenNavProps) {
   if (!camRoll.permissionsGranted) return <NoPermissionsMessage />;
 
   const onContinue = () => {
-    dispatch(addMemes(items.map(({ id, uri }) => ({ id, uri, type: MemeType.Gallery }))));
+    dispatch(
+      addMemes(
+        items.map(({ id, uri }) => ({
+          id,
+          uri,
+          type: MemeType.Gallery,
+          title: 'Some Title',
+          content: 'Some long content xD',
+        })),
+      ),
+    );
     props.navigation.replace('GalleryHome');
   };
 
