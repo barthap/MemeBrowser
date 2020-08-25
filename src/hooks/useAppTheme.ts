@@ -3,6 +3,7 @@ import { DarkTheme as PaperDarkTheme, DefaultTheme as PaperDefaultTheme } from '
 import { DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useColorScheme } from 'react-native-appearance';
+import { AppThemeContext } from './usePreferencesContext';
 
 const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
@@ -17,7 +18,7 @@ const CombinedDarkTheme = {
 
 const THEME_KEY = 'THEME_PREFERENCES';
 
-export default function useAppTheme() {
+export default function useAppTheme(): AppThemeContext & { theme: typeof CombinedDefaultTheme } {
   const [isAutoTheme, setIsAutoTheme] = React.useState(true);
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
@@ -55,7 +56,7 @@ export default function useAppTheme() {
     };
 
     saveTheme();
-  }, [isDarkTheme]);
+  }, [isDarkTheme, isAutoTheme]);
 
   const detectedTheme = useColorScheme();
   const shouldSetDarkTheme = isAutoTheme ? detectedTheme === 'dark' : isDarkTheme;
