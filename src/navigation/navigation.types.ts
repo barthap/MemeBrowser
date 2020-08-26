@@ -11,7 +11,8 @@ export type DrawerNavParams = {
 export type RootStackParams = {
   Memes: undefined;
   Settings: undefined;
-  MoreSettings: undefined;
+  AppSettings: undefined;
+  DevSettings: undefined;
 };
 
 export type TabNavParams = {
@@ -64,6 +65,16 @@ type ExploreNavProp<T extends keyof ExploreNavParams> = CompositeNavigationProp<
 export type SettingsScreenNavProps = {
   navigation: RootStackNavProp<'Settings'>;
   route: RouteProp<RootStackParams, 'Settings'>;
+};
+
+export type AppSettingsScreenNavProps = {
+  navigation: RootStackNavProp<'AppSettings'>;
+  route: RouteProp<RootStackParams, 'AppSettings'>;
+};
+
+export type DevSettingsScreenNavProps = {
+  navigation: RootStackNavProp<'DevSettings'>;
+  route: RouteProp<RootStackParams, 'DevSettings'>;
 };
 
 /// Gallery Navigator Screens

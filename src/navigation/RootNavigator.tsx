@@ -5,6 +5,8 @@ import SettingsScreen from '../screens/SettingsScreen';
 import { Settings2Screen } from '../components/TestScreen';
 import { RootStackParams } from './navigation.types';
 import useNavHeader from '../hooks/useNavHeader';
+import AppSettingsScreen from '../screens/AppSettingsScreen';
+import DevSettingsScreen from '../screens/DevSettingsScreen';
 
 const RootStack = createStackNavigator<RootStackParams>();
 
@@ -14,7 +16,8 @@ const RootNavigator = () => {
     <RootStack.Navigator screenOptions={{ header }} headerMode="screen">
       <RootStack.Screen name="Memes" component={TabNavigator} options={{ headerShown: false }} />
       <RootStack.Screen name="Settings" component={SettingsScreen} />
-      <RootStack.Screen name="MoreSettings" component={Settings2Screen} />
+      <RootStack.Screen name="AppSettings" component={AppSettingsScreen} options={{ headerTitle: 'App Settings' }} />
+      <RootStack.Screen name="DevSettings" component={DevSettingsScreen} options={{ headerTitle: 'Dev Settings' }} />
     </RootStack.Navigator>
   );
 };

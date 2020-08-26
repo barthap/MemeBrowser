@@ -11,6 +11,7 @@ import useAppTheme from './hooks/useAppTheme';
 import { Provider as ReduxProvider } from 'react-redux';
 import reduxStore from './core/redux';
 import { PreferencesContext } from './hooks/usePreferencesContext';
+import { useDevContextProvider, DevContext } from './hooks/useDevContext';
 
 const Drawer = createDrawerNavigator<DrawerNavParams>();
 
@@ -22,16 +23,19 @@ const DrawerNavigator = () => (
 
 export default function AppMain() {
   const { theme, ...themeContext } = useAppTheme();
+  const devContext = useDevContextProvider();
 
   return (
     <ReduxProvider store={reduxStore}>
       <PaperProvider theme={theme}>
         <SafeAreaProvider>
           <PreferencesContext.Provider value={themeContext}>
-            <NavigationContainer theme={theme}>
-              <DrawerNavigator />
-              <StatusBar style={themeContext.isDarkTheme ? 'light' : 'light'} />
-            </NavigationContainer>
+            <DevContext.Provider value={devContext}>
+              <NavigationContainer theme={theme}>
+                <DrawerNavigator />
+                <StatusBar style={themeContext.isDarkTheme ? 'light' : 'light'} />
+              </NavigationContainer>
+            </DevContext.Provider>
           </PreferencesContext.Provider>
         </SafeAreaProvider>
       </PaperProvider>
