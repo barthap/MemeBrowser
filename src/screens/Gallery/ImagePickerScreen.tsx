@@ -3,14 +3,14 @@ import * as MediaLibrary from 'expo-media-library';
 import * as Linking from 'expo-linking';
 import { StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import SelectableImageGrid from '../components/SelectableImageGrid';
-import { useCameraRoll } from '../hooks/useCameraRoll';
-import View from '../components/ThemedView';
+import SelectableImageGrid from '../../components/SelectableImageGrid';
+import { useCameraRoll } from '../../hooks/useCameraRoll';
+import View from '../../components/ThemedView';
 import { Text, Button, FAB } from 'react-native-paper';
-import { PickerScreenNavProps } from '../navigation/navigation.types';
-import { MemeType } from '../core/interafaces';
+import { PickerScreenNavProps } from '../../navigation/navigation.types';
+import { MemeType } from '../../core/interafaces';
 import { useDispatch } from 'react-redux';
-import { addMemes } from '../core/redux/MemeSlice';
+import { addMemes } from '../../core/redux/MemeSlice';
 
 export default function ImagePickerScreen(props: PickerScreenNavProps) {
   const camRoll = useCameraRoll();

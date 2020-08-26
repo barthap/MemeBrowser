@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { List } from 'react-native-paper';
-import ScrollView from '../components/ThemedScrollView';
+import ScrollView from '../../components/ThemedScrollView';
 import * as Linking from 'expo-linking';
-import { SettingsScreenNavProps } from '../navigation/navigation.types';
-import { useDevContext } from '../hooks/useDevContext';
+import { SettingsScreenNavProps } from '../../navigation/navigation.types';
+import { useDevContext } from '../../hooks/useDevContext';
 
 const Icon = (name: string) => (props: any) => <List.Icon {...props} icon={name} />;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import ExploreScreen from '../screens/ExploreScreen';
+import ExploreScreen from '../screens/Exploring/ExploreScreen';
 import { ExploreNavParams } from './navigation.types';
 import useNavHeader from '../hooks/useNavHeader';
 

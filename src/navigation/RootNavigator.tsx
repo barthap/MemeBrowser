@@ -1,12 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './TabNavigator';
-import SettingsScreen from '../screens/SettingsScreen';
-import { Settings2Screen } from '../components/TestScreen';
+import SettingsScreen from '../screens/Settings/SettingsScreen';
 import { RootStackParams } from './navigation.types';
 import useNavHeader from '../hooks/useNavHeader';
-import AppSettingsScreen from '../screens/AppSettingsScreen';
-import DevSettingsScreen from '../screens/DevSettingsScreen';
+import AppSettingsScreen from '../screens/Settings/AppSettingsScreen';
+import DevSettingsScreen from '../screens/Settings/DevSettingsScreen';
 
 const RootStack = createStackNavigator<RootStackParams>();
 

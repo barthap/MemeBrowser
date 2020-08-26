@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { GalleryScreenNavProps } from '../navigation/navigation.types';
+import { GalleryScreenNavProps } from '../../navigation/navigation.types';
 import { Appbar } from 'react-native-paper';
-import { ImageGrid } from '../components/ImageGrid';
-import useTypedSelector from '../hooks/useTypedSelector';
-import View from '../components/ThemedView';
+import { ImageGrid } from '../../components/ImageGrid';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import View from '../../components/ThemedView';
 import { Text } from 'react-native-paper';
-import { IMeme } from '../core/interafaces';
+import { IMeme } from '../../core/interafaces';
 
 export default function GalleryScreen({ navigation }: GalleryScreenNavProps) {
   navigation.setOptions({
@@ -33,7 +33,7 @@ export default function GalleryScreen({ navigation }: GalleryScreenNavProps) {
   );
 }
 
-const NoItemsMessage = (props: { handleRefresh?: () => void }) => (
+const NoItemsMessage = () => (
   <View style={styles.messageContainer}>
     <Text style={styles.messageText}>Meme list is empty!</Text>
   </View>

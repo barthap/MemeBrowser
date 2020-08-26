@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import GalleryScreen from '../screens/GalleryScreen';
+import GalleryScreen from '../screens/Gallery/GalleryScreen';
 import { GalleryNavParams } from './navigation.types';
 import useNavHeader from '../hooks/useNavHeader';
-import ImagePickerScreen from '../screens/ImagePickerScreen';
-import MemeDetailsScreen from '../screens/MemeDetailsScreen';
+import ImagePickerScreen from '../screens/Gallery/ImagePickerScreen';
+import MemeDetailsScreen from '../screens/Gallery/MemeDetailsScreen';
 
 const GalleryStack = createStackNavigator<GalleryNavParams>();
 

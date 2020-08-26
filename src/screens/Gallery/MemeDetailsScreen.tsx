@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Alert } from 'react-native';
-import ScrollView from '../components/ThemedScrollView';
+import ScrollView from '../../components/ThemedScrollView';
 import * as Sharing from 'expo-sharing';
 import { useDispatch } from 'react-redux';
-import { DetailsScreenNavProps } from '../navigation/navigation.types';
+import { DetailsScreenNavProps } from '../../navigation/navigation.types';
 import { Appbar, Card, Paragraph, Button } from 'react-native-paper';
-import { deleteMeme } from '../core/redux/MemeSlice';
+import { deleteMeme } from '../../core/redux/MemeSlice';
 
 export default function MemeDetailsScreen(props: DetailsScreenNavProps) {
   const { meme } = props.route.params;

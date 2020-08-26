@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
-import ThemedView from '../components/ThemedView';
+import ThemedView from '../../components/ThemedView';
 
 export default function ExploreScreen() {
   return (
