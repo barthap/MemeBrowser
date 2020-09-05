@@ -9,7 +9,7 @@ export enum MemeType {
   Remote = 'remote',
 }
 
-export interface IMeme extends IImage {
+export interface MemeEntity extends IImage {
   title?: string;
   content?: string;
   type: MemeType;

@@ -7,7 +7,7 @@ import MonoText from '../../components/MonoText';
 import Constants from 'expo-constants';
 import * as Application from 'expo-application';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Zocial } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
 
 const applicationFilter = (key: any, val: any) => typeof val !== 'function' && key !== 'ApplicationReleaseType';
 const ShowConstants = JSON.stringify(Constants, (key, val) => (key === 'systemFonts' ? undefined : val), 2);
@@ -16,6 +16,7 @@ const convertStorage = (vals: any[][]) => vals.reduce((prev, arr) => ({ ...prev,
 
 export default function DevSettingsScreen() {
   const { disableDev } = useDevContext();
+  const reduxState = useSelector(state => state);
 
   const [storageData, setStorage] = React.useState(null as any);
   const refreshStorage = async () => {
@@ -46,6 +47,10 @@ export default function DevSettingsScreen() {
       <List.Accordion title="AsyncStorage content">
         <Button onPress={refreshStorage}>Refresh</Button>
         <MonoText>{storageData}</MonoText>
+      </List.Accordion>
+      <Divider />
+      <List.Accordion title="Redux state">
+        <MonoText>{JSON.stringify(reduxState, null, 2)}</MonoText>
       </List.Accordion>
       <Divider />
     </ScrollView>

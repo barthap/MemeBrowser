@@ -2,7 +2,7 @@ import { CompositeNavigationProp, RouteProp, ParamListBase } from '@react-naviga
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { IMeme } from '../core/interafaces';
+import { MemeEntity } from '../core/interafaces';
 
 export type DrawerNavParams = {
   Main: SubNavigator<RootStackParams>;
@@ -23,7 +23,7 @@ export type TabNavParams = {
 export type GalleryNavParams = {
   GalleryHome: undefined;
   Picker: undefined;
-  Details: { meme: IMeme };
+  Details: { meme: MemeEntity };
 };
 
 export type ExploreNavParams = {

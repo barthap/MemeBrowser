@@ -6,7 +6,8 @@ import { ImageGrid } from '../../components/ImageGrid';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import View from '../../components/ThemedView';
 import { Text } from 'react-native-paper';
-import { IMeme } from '../../core/interafaces';
+import { MemeEntity } from '../../core/interafaces';
+import Toast from '../../components/Toast';
 
 export default function GalleryScreen({ navigation }: GalleryScreenNavProps) {
   navigation.setOptions({
@@ -19,16 +20,17 @@ export default function GalleryScreen({ navigation }: GalleryScreenNavProps) {
     ),
   });
 
-  const onClick = (meme: IMeme) => {
+  const onClick = (meme: MemeEntity) => {
     navigation.navigate('Details', { meme });
   };
 
-  const memes = useTypedSelector((state) => state.memes);
+  const memes = useTypedSelector(state => state.memes);
   const noItems = memes.length === 0;
 
   return (
     <View style={styles.container}>
       {noItems ? <NoItemsMessage /> : <ImageGrid memes={memes} onMemePress={onClick} />}
+      <Toast />
     </View>
   );
 }
