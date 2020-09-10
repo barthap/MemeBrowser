@@ -1,9 +1,10 @@
 import MemeReducer from './MemeSlice';
 import ToastReducer from './ToastSlice';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import undoable from './undoableReducer';
 
 const reducer = {
-  memes: MemeReducer,
+  memes: undoable(MemeReducer),
   toast: ToastReducer,
 };
 
