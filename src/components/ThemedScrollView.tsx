@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollViewProps, ScrollView } from 'react-native';
+import { ScrollViewProps } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useTheme } from 'react-native-paper';
 
 const ThemedScrollView: React.FunctionComponent<ScrollViewProps> = (props: ScrollViewProps) => {
