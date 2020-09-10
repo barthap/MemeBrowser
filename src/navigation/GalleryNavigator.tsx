@@ -5,6 +5,7 @@ import { GalleryNavParams } from './navigation.types';
 import useNavHeader from '../hooks/useNavHeader';
 import ImagePickerScreen from '../screens/Gallery/ImagePickerScreen';
 import MemeDetailsScreen from '../screens/Gallery/MemeDetailsScreen';
+import PrepareMemesScreen from '../screens/Gallery/PrepareMemesScreen';
 
 const GalleryStack = createStackNavigator<GalleryNavParams>();
 
@@ -15,6 +16,7 @@ const GalleryNavigator = () => {
       <GalleryStack.Screen name="GalleryHome" component={GalleryScreen} options={{ headerTitle: 'Your memes' }} />
       <GalleryStack.Screen name="Picker" component={ImagePickerScreen} options={{ headerTitle: 'Add memes' }} />
       <GalleryStack.Screen name="Details" component={MemeDetailsScreen} />
+      <GalleryStack.Screen name="Prepare" component={PrepareMemesScreen} options={{ headerTitle: 'Describe images' }} />
     </GalleryStack.Navigator>
   );
 };

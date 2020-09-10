@@ -24,7 +24,7 @@ export default function GalleryScreen({ navigation }: GalleryScreenNavProps) {
     navigation.navigate('Details', { meme });
   };
 
-  const memes = useTypedSelector(state => state.memes);
+  const memes = useTypedSelector(state => state.memes.present);
   const noItems = memes.length === 0;
 
   return (

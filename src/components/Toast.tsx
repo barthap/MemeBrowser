@@ -10,12 +10,12 @@ const infoTheme = (theme: ReactNativePaper.Theme, isDark: boolean) =>
     ? { ...theme, colors: { ...theme.colors, onSurface: '#95D4FF', surface: '#024aff', accent: '#024aff' } }
     : theme;
 
-const errorTheme = (theme: ReactNativePaper.Theme, _isDark: boolean) => ({
+const errorTheme = (theme: ReactNativePaper.Theme) => ({
   ...theme,
   colors: { ...theme.colors, onSurface: '#ff8273', surface: '#770300', accent: '#770300' },
 });
 
-const successTheme = (theme: ReactNativePaper.Theme, _isDark: boolean) => ({
+const successTheme = (theme: ReactNativePaper.Theme) => ({
   ...theme,
   colors: { ...theme.colors, onSurface: '#8dff71', surface: '#007701', accent: '#007701' },
 });
@@ -25,11 +25,11 @@ export type ToastStyle = 'info' | 'error' | 'success';
 function getTheme(styleName: ToastStyle, theme: ReactNativePaper.Theme, isDark: boolean): ReactNativePaper.Theme {
   switch (styleName) {
     case 'error':
-      return errorTheme(theme, isDark);
+      return errorTheme(theme);
     case 'info':
       return infoTheme(theme, isDark);
     case 'success':
-      return successTheme(theme, isDark);
+      return successTheme(theme);
   }
 }
 

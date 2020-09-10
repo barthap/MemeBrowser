@@ -2,7 +2,7 @@ import { CompositeNavigationProp, RouteProp, ParamListBase } from '@react-naviga
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { MemeEntity } from '../core/interafaces';
+import { MemeEntity, IImage } from '../core/interafaces';
 
 export type DrawerNavParams = {
   Main: SubNavigator<RootStackParams>;
@@ -24,6 +24,7 @@ export type GalleryNavParams = {
   GalleryHome: undefined;
   Picker: undefined;
   Details: { meme: MemeEntity };
+  Prepare: { images: IImage[] };
 };
 
 export type ExploreNavParams = {
@@ -92,6 +93,11 @@ export type PickerScreenNavProps = {
 export type DetailsScreenNavProps = {
   navigation: GalleryNavProp<'Details'>;
   route: RouteProp<GalleryNavParams, 'Details'>;
+};
+
+export type PrepareScreenNavProps = {
+  navigation: GalleryNavProp<'Prepare'>;
+  route: RouteProp<GalleryNavParams, 'Prepare'>;
 };
 
 // Explore Navigator Screens

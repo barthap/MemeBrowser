@@ -1,4 +1,4 @@
-import { Reducer, AnyAction, Action } from '@reduxjs/toolkit';
+import { Reducer, AnyAction } from '@reduxjs/toolkit';
 
 type UndoableReducer = <S, A extends AnyAction>(
   reducer: Reducer<S, any>,
