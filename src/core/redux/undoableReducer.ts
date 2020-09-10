@@ -2,7 +2,7 @@ import { Reducer, AnyAction, Action } from '@reduxjs/toolkit';
 
 type UndoableReducer = <S, A extends AnyAction>(
   reducer: Reducer<S, any>,
-  undoActionName: string,
+  undoActionName?: string,
 ) => Reducer<{ past: S[]; present: S }, A>;
 
 const undoable: UndoableReducer = (reducer, undoActionName = 'UNDO') => {
@@ -16,6 +16,9 @@ const undoable: UndoableReducer = (reducer, undoActionName = 'UNDO') => {
 
     switch (action.type) {
       case undoActionName:
+        if (past.length < 1) {
+          return state;
+        }
         const previous = past[past.length - 1];
         const newPast = past.slice(0, past.length - 1);
         return {
